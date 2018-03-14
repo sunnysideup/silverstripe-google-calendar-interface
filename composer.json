@@ -1,0 +1,19 @@
+{
+    "name": "sunnysideup/google-calendar-interface",
+    "type": "library",
+    "description": "Class implementation to connect to a google calendar",
+    "keywords": ["google", "calendar", "client", "interface"],
+    "homepage": "https://github.com/sunnysideup/silverstripe-google-calendar-interface",
+    "authors": [
+        {
+          "name": "Nicolaas Francken",
+          "email": "modules@sunnysideup.co.nz",
+          "homepage": "https://github.com/sunnysideup"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "google/apiclient": "^2.0",
+        "silverstripe/framework": "~3.1"
+    }
+}

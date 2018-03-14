@@ -1,0 +1,9 @@
+---
+Name: google_calendar_interface
+After: 'framework/*','cms/*'
+---
+
+GoogleCalendarInterface:
+  application_name: "Test Application"
+  credentials_path: "path/to/your/calendar-api-access-token.json"
+  client_secret_path: "path/to/your/client_secret.json"
