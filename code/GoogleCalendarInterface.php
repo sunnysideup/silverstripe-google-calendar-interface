@@ -42,8 +42,6 @@ class GoogleCalendarInterface extends Google_Client
 
     private $google_service_calendar;
 
-    private $auth_url = '';
-
     private $app_message = '';
 
     /**
@@ -93,12 +91,12 @@ class GoogleCalendarInterface extends Google_Client
 
         if (! file_exists($credential_file) || isset($accessToken['error'])) {
             if (empty($verification_code)){
-                return $this->setAuthLink();
+                return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
             file_put_contents($credential_file, json_encode($accessToken) );
             if(isset($accessToken['error'])) {
-                return $this->setAuthLink();
+                return false;
             }
         }
 
@@ -113,22 +111,12 @@ class GoogleCalendarInterface extends Google_Client
 
     /**
      * Get error message string
-     * @return boolen
-     */
-    public function setAuthLink()
-    {
-        $authUrl = $this->createAuthUrl();
-        $this->auth_url = '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
-        return false;
-    }
-
-    /**
-     * Get error message string
-     * @return string
+     * @return html
      */
     public function getAuthLink()
     {
-        return $this->auth_url;
+        $authUrl = $this->createAuthUrl();
+        return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
 
     /**
