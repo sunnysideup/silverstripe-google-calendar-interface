@@ -1,6 +1,10 @@
 <?php
 
-
+/*
+    see:
+    https://developers.google.com/calendar/quickstart/php
+    https://github.com/bpineda/google-calendar-connect-class/blob/master/src/Google/Calendar/GoogleCalendarClient.php
+ */
 
 class GoogleCalendarInterface extends Google_Client
 {
@@ -102,9 +106,9 @@ class GoogleCalendarInterface extends Google_Client
 
         $this->setAccessToken($accessToken);
         // Refresh the token if it's expired.
-        if ($this->isAccessTokenExpired()) {
-            $this->refreshToken($this->getRefreshToken());
-            file_put_contents($credential_file, $this->getAccessToken());
+        if ($this->isAccessTokenExpired() || 1 == 1) {
+            $this->fetchAccessTokenWithRefreshToken($this->getRefreshToken());
+            file_put_contents($credential_file, json_encode($this->getAccessToken()));
         }
         return true;
     }
@@ -145,8 +149,14 @@ class GoogleCalendarInterface extends Google_Client
      *   'summary' => 'Event name',
      *   'location' => 'Event address',
      *   'description' => 'Event description',
-     *   'start' => '2015-05-28T09:00:00',
-     *   'end' => '2015-05-28T17:00:00-07:00',
+     *   'start' =>  [
+     *                 'dateTime' => '2015-05-28T09:00:00',
+     *                 'timeZone' => 'Pacific/Auckland'
+     *             ],
+     *   'end' =>    [
+     *                 '2015-05-28T17:00:00-07:00',
+     *                 'timeZone' => Pacific/Auckland
+     *             ],
      *   'attendees' => array(
      *                           array('email' => 'attendee1@example.com'),
      *                           array('email' => 'attendee2@example.com'),
@@ -167,6 +177,69 @@ class GoogleCalendarInterface extends Google_Client
     {
         $event = new \Google_Service_Calendar_Event($eventAttributes);
         $event = $this->google_service_calendar->events->insert($calendarID, $event);
+        return $event;
+    }
+
+
+    /*
+     * see the above function for list of attributes that can be passed in the $eventAttributes array
+     * @param array $eventAttributes Event attributes array
+     * @param string $eventID EventID - the id of the event you want to update
+     * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
+     * @return Google_Service_Calendar_Event
+     */
+    public function updateCalendarEvent($eventAttributes, $eventID, $calendarID = 'primary')
+    {
+        $event = $this->google_service_calendar->events->get($calendarID, $eventID);
+
+        if(isset($eventAttributes['summary'])){
+            $event->setSummary($eventAttributes['summary']);
+        }
+
+        if(isset($eventAttributes['location'])){
+            $event->setLocation($eventAttributes['location']);
+        }
+
+        if(isset($eventAttributes['description'])){
+            $event->setLocation($eventAttributes['description']);
+        }
+
+        if(isset($eventAttributes['start'])){
+            $startTime = new Google_Service_Calendar_EventDateTime();
+            $startTime->setDateTime($eventAttributes['start']['dateTime']);
+            $startTime->setTimeZone($eventAttributes['start']['timeZone']);
+            $event->setStart($startTime);
+        }
+
+        if(isset($eventAttributes['end'])){
+            $endTime = new Google_Service_Calendar_EventDateTime();
+            $endTime->setDateTime($eventAttributes['end']['dateTime']);
+            $endTime->setTimeZone($eventAttributes['end']['timeZone']);
+            $event->setEnd($endTime);
+        }
+
+        $updatedEvent = $this->google_service_calendar->events->update($calendarID, $eventID, $event);
+        return $updatedEvent;
+    }
+
+    /*
+    * @param string $eventID EventID - the id of the event you want to update
+    * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
+    * @return Google_Service_Calendar_Event
+    */
+    public function getCalendarEvent($eventID, $calendarID = 'primary')
+    {
+        try {
+            $event = $this->google_service_calendar->events->get($calendarID, $eventID);
+        }
+        catch (Exception $e) {
+            //should we provide some actual feedback here or just return false?
+            return false;
+        }
+
+        if($event->getStatus() === 'cancelled'){
+            return false;
+        }
         return $event;
     }
 
