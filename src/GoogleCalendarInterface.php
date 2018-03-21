@@ -6,43 +6,13 @@
     https://github.com/bpineda/google-calendar-connect-class/blob/master/src/Google/Calendar/GoogleCalendarClient.php
  */
 
-class GoogleCalendarInterface extends Google_Client
+class GoogleCalendarInterface extends GoogleInterface
 {
 
     /**
      * @var String
      */
-    private static $application_name = "";
-
-    /**
-     * @var String
-     */
-    private static $credentials_path = "";
-
-
-    /**
-     * @var String
-     */
-    private static $client_secret_path = "";
-
-
-    /**
-     * @var String
-     */
-    private static $client_access_type = "offline";
-
-
-    /**
-     * @var String
-     */
-    private static $time_zone = "Pacific/Auckland";
-
-    /**
-     * @var String
-     */
     private static $calendar_id = "";
-
-    private $scopes;
 
     private $google_service_calendar;
 
@@ -65,62 +35,6 @@ class GoogleCalendarInterface extends Google_Client
          */
         $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR));
         $this->google_service_calendar = new \Google_Service_Calendar($this);
-    }
-
-    /**
-     * Class configurator
-     * @param null $verification_code Verification code we will use
-     * to create our authentication credentials
-     * @return bool
-     */
-    public function config($verification_code = null)
-    {
-        $base_folder = Director::baseFolder().'/';
-        $this->setApplicationName(
-            Config::inst()->get('GoogleCalendarInterface', 'application_name')
-        );
-        $this->setScopes($this->scopes);
-        $this->setAuthConfigFile(
-            $base_folder . Config::inst()->get('GoogleCalendarInterface', 'client_secret_path')
-        );
-        $this->setAccessType(
-            Config::inst()->get('GoogleCalendarInterface', 'client_access_type')
-        );
-        $credential_file = $base_folder . Config::inst()->get('GoogleCalendarInterface', 'credentials_path');
-        $accessToken = [];
-
-        if (file_exists($credential_file)) {
-            $accessToken = json_decode( file_get_contents($credential_file), 1);
-        }
-
-        if (! file_exists($credential_file) || isset($accessToken['error'])) {
-            if (empty($verification_code)){
-                return false;
-            }
-            $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            file_put_contents($credential_file, json_encode($accessToken) );
-            if(isset($accessToken['error'])) {
-                return false;
-            }
-        }
-
-        $this->setAccessToken($accessToken);
-        // Refresh the token if it's expired.
-        if ($this->isAccessTokenExpired() || 1 == 1) {
-            $this->fetchAccessTokenWithRefreshToken($this->getRefreshToken());
-            file_put_contents($credential_file, json_encode($this->getAccessToken()));
-        }
-        return true;
-    }
-
-    /**
-     * Get error message string
-     * @return html
-     */
-    public function getAuthLink()
-    {
-        $authUrl = $this->createAuthUrl();
-        return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
 
     /**
