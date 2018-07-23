@@ -22,7 +22,7 @@ class GoogleCalendarInterface extends GoogleInterface
      * Constructor for the class. We call the parent constructor, set
      * scopes array and service calendar instance that we will use
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         /**
@@ -45,7 +45,7 @@ class GoogleCalendarInterface extends GoogleInterface
     {
         $results = $this->google_service_calendar->calendarList->listCalendarList();
         if (count($results->getItems()) == 0) {
-           return array();
+            return array();
         }
 
         $calendarsArray = [];
@@ -106,26 +106,26 @@ class GoogleCalendarInterface extends GoogleInterface
     {
         $event = $this->google_service_calendar->events->get($calendarID, $eventID);
 
-        if(isset($eventAttributes['summary'])){
+        if (isset($eventAttributes['summary'])) {
             $event->setSummary($eventAttributes['summary']);
         }
 
-        if(isset($eventAttributes['location'])){
+        if (isset($eventAttributes['location'])) {
             $event->setLocation($eventAttributes['location']);
         }
 
-        if(isset($eventAttributes['description'])){
+        if (isset($eventAttributes['description'])) {
             $event->setLocation($eventAttributes['description']);
         }
 
-        if(isset($eventAttributes['start'])){
+        if (isset($eventAttributes['start'])) {
             $startTime = new Google_Service_Calendar_EventDateTime();
             $startTime->setDateTime($eventAttributes['start']['dateTime']);
             $startTime->setTimeZone($eventAttributes['start']['timeZone']);
             $event->setStart($startTime);
         }
 
-        if(isset($eventAttributes['end'])){
+        if (isset($eventAttributes['end'])) {
             $endTime = new Google_Service_Calendar_EventDateTime();
             $endTime->setDateTime($eventAttributes['end']['dateTime']);
             $endTime->setTimeZone($eventAttributes['end']['timeZone']);
@@ -145,13 +145,12 @@ class GoogleCalendarInterface extends GoogleInterface
     {
         try {
             $event = $this->google_service_calendar->events->get($calendarID, $eventID);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             //should we provide some actual feedback here or just return false?
             return false;
         }
 
-        if($event->getStatus() === 'cancelled'){
+        if ($event->getStatus() === 'cancelled') {
             return false;
         }
         return $event;
@@ -167,12 +166,12 @@ class GoogleCalendarInterface extends GoogleInterface
         $optParams = array(
            'maxResults' => 10,
            'orderBy' => 'startTime',
-           'singleEvents' => TRUE,
+           'singleEvents' => true,
            'timeMin' => date('c'),
         );
         $results = $this->google_service_calendar->events->listEvents($calendarID, $optParams);
         if (count($results->getItems()) == 0) {
-           return array();
+            return array();
         }
         return $this->createEventsArray($results);
     }
@@ -204,5 +203,4 @@ class GoogleCalendarInterface extends GoogleInterface
         }
         return $events_array;
     }
-
 }
