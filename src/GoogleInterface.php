@@ -67,6 +67,9 @@ class GoogleInterface extends Google_Client
         $this->setAccessType(
             Config::inst()->get('GoogleCalendarInterface', 'client_access_type')
         );
+        $this->setApprovalPrompt('force');
+
+
         $credential_file = $base_folder . Config::inst()->get('GoogleCalendarInterface', 'credentials_path');
         $accessToken = [];
 
@@ -88,8 +91,21 @@ class GoogleInterface extends Google_Client
         $this->setAccessToken($accessToken);
         // Refresh the token if it's expired.
         if ($this->isAccessTokenExpired()) {
-            $this->fetchAccessTokenWithRefreshToken($this->getRefreshToken());
-            file_put_contents($credential_file, json_encode($this->getAccessToken()));
+            // save refresh token to some variable
+            $refreshTokenSaved = $this->getRefreshToken();
+
+            // update access token
+            $this->fetchAccessTokenWithRefreshToken($refreshTokenSaved);
+
+            // pass access token to some variable
+            $newAccessToken = $this->getAccessToken();
+
+            $accessToken = array_merge($accessToken, $newAccessToken);
+
+            $this->setAccessToken($accessToken);
+
+
+            file_put_contents($credential_file, json_encode($accessTokenUpdated));
         }
         return true;
     }
