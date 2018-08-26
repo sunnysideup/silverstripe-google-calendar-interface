@@ -43,7 +43,7 @@ class GoogleInterface extends Google_Client
      * Constructor for the class. We call the parent constructor, set
      * scopes array and service calendar instance that we will use
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -74,16 +74,16 @@ class GoogleInterface extends Google_Client
         $accessToken = [];
 
         if (file_exists($credential_file)) {
-            $accessToken = json_decode( file_get_contents($credential_file), 1);
+            $accessToken = json_decode(file_get_contents($credential_file), 1);
         }
 
         if (! file_exists($credential_file) || isset($accessToken['error'])) {
-            if (empty($verification_code)){
+            if (empty($verification_code)) {
                 return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            file_put_contents($credential_file, json_encode($accessToken) );
-            if(isset($accessToken['error'])) {
+            file_put_contents($credential_file, json_encode($accessToken));
+            if (isset($accessToken['error'])) {
                 return false;
             }
         }
@@ -119,5 +119,4 @@ class GoogleInterface extends Google_Client
         $authUrl = $this->createAuthUrl();
         return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
-
 }
