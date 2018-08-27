@@ -98,10 +98,13 @@ class GoogleInterface extends Google_Client
             $this->fetchAccessTokenWithRefreshToken($refreshTokenSaved);
 
             // pass access token to some variable
-            $newAccessToken = $this->getAccessToken();
+            $accessTokenUpdated = $this->getAccessToken();
 
-            $accessToken = array_merge($accessToken, $newAccessToken);
+            // append refresh token
+            $accessTokenUpdated['refresh_token'] = $refreshTokenSaved;
 
+            //Set the new acces token
+            $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
 
 
