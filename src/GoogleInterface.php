@@ -82,7 +82,9 @@ class GoogleInterface extends Google_Client
                 return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            file_put_contents($credential_file, json_encode($accessToken));
+            if(!is_null($accessToken)){
+                file_put_contents($credential_file, json_encode($accessToken));
+            }
             if (isset($accessToken['error'])) {
                 return false;
             }
@@ -91,6 +93,7 @@ class GoogleInterface extends Google_Client
         $this->setAccessToken($accessToken);
         // Refresh the token if it's expired.
         if ($this->isAccessTokenExpired()) {
+
             // save refresh token to some variable
             $refreshTokenSaved = $this->getRefreshToken();
 
@@ -107,8 +110,9 @@ class GoogleInterface extends Google_Client
             $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
 
-
-            file_put_contents($credential_file, json_encode($accessTokenUpdated));
+            if(!is_null($accessTokenUpdated)){
+                file_put_contents($credential_file, json_encode($accessTokenUpdated));
+            }
         }
         return true;
     }
