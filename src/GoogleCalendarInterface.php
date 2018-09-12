@@ -90,7 +90,13 @@ class GoogleCalendarInterface extends GoogleInterface
     public function addCalendarEvent($eventAttributes, $calendarID = 'primary')
     {
         $event = new \Google_Service_Calendar_Event($eventAttributes);
-        $event = $this->google_service_calendar->events->insert($calendarID, $event);
+
+        try {
+            $event = $this->google_service_calendar->events->insert($calendarID, $event);
+        } catch (Exception $e) {
+            //should we provide some actual feedback here or just return false?
+            return false;
+        }
         return $event;
     }
 
@@ -104,7 +110,12 @@ class GoogleCalendarInterface extends GoogleInterface
      */
     public function updateCalendarEvent($eventAttributes, $eventID, $calendarID = 'primary')
     {
-        $event = $this->google_service_calendar->events->get($calendarID, $eventID);
+        try {
+            $event = $this->google_service_calendar->events->get($calendarID, $eventID);
+        } catch (Exception $e) {
+            //should we provide some actual feedback here or just return false?
+            return false;
+        }
 
         if (isset($eventAttributes['summary'])) {
             $event->setSummary($eventAttributes['summary']);
