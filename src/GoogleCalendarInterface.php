@@ -167,6 +167,18 @@ class GoogleCalendarInterface extends GoogleInterface
         return $event;
     }
 
+    public function deleteCalendarEvent($eventID, $calendarID = 'primary')
+    {
+
+        try {
+            $event = $this->google_service_calendar->events->delete($calendarID, $eventID);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return $event;
+    }
+
     /**
     * Get our selected calendar events as an array or false if it's empty
     * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
