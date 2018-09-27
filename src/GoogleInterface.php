@@ -82,7 +82,7 @@ class GoogleInterface extends Google_Client
                 return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            if(!is_null($accessToken)){
+            if (!is_null($accessToken)) {
                 file_put_contents($credential_file, json_encode($accessToken));
             }
             if (isset($accessToken['error'])) {
@@ -110,7 +110,7 @@ class GoogleInterface extends Google_Client
             $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
 
-            if(!is_null($accessTokenUpdated)){
+            if (!is_null($accessTokenUpdated)) {
                 file_put_contents($credential_file, json_encode($accessTokenUpdated));
             }
         }

@@ -169,7 +169,6 @@ class GoogleCalendarInterface extends GoogleInterface
 
     public function deleteCalendarEvent($eventID, $calendarID = 'primary')
     {
-
         try {
             $event = $this->google_service_calendar->events->delete($calendarID, $eventID);
         } catch (Exception $e) {
