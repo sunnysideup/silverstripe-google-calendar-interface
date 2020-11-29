@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5.0",
         "google/apiclient": "^2.0",
-        "silverstripe/cms": "~3.6"
+        "silverstripe/recipe-cms": "^4.4"
     },
     "extra": {
         "installer-name": "google-calendar-interface"
