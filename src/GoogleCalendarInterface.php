@@ -2,11 +2,10 @@
 
 namespace Sunnysideup\GoogleCalendarInterface;
 
+use Exception;
 use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
-use Exception;
 use Google_Service_Calendar_EventDateTime;
-
 
 /*
     see:
@@ -16,11 +15,10 @@ use Google_Service_Calendar_EventDateTime;
 
 class GoogleCalendarInterface extends GoogleInterface
 {
-
     /**
-     * @var String
+     * @var string
      */
-    private static $calendar_id = "";
+    private static $calendar_id = '';
 
     private $google_service_calendar;
 
@@ -41,19 +39,19 @@ class GoogleCalendarInterface extends GoogleInterface
          * Google_Service_Calendar::CALENDAR
          * if you want read/write access to the calendar
          */
-        $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR));
+        $this->scopes = implode(' ', [\Google_Service_Calendar::CALENDAR]);
         $this->google_service_calendar = new \Google_Service_Calendar($this);
     }
 
     /**
-    * Gets a list of all calenders
-    * @return array|bool
-    */
+     * Gets a list of all calenders
+     * @return array|bool
+     */
     public function getCalendars()
     {
         $results = $this->google_service_calendar->calendarList->listCalendarList();
-        if (count($results->getItems()) == 0) {
-            return array();
+        if (count($results->getItems()) === 0) {
+            return [];
         }
 
         $calendarsArray = [];
@@ -108,7 +106,6 @@ class GoogleCalendarInterface extends GoogleInterface
         return $event;
     }
 
-
     /*
      * see the above function for list of attributes that can be passed in the $eventAttributes array
      * @param array $eventAttributes Event attributes array
@@ -151,8 +148,7 @@ class GoogleCalendarInterface extends GoogleInterface
             $event->setEnd($endTime);
         }
 
-        $updatedEvent = $this->google_service_calendar->events->update($calendarID, $eventID, $event);
-        return $updatedEvent;
+        return $this->google_service_calendar->events->update($calendarID, $eventID, $event);
     }
 
     /*
@@ -187,21 +183,21 @@ class GoogleCalendarInterface extends GoogleInterface
     }
 
     /**
-    * Get our selected calendar events as an array or false if it's empty
-    * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
-    * @return array|bool
-    */
+     * Get our selected calendar events as an array or false if it's empty
+     * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
+     * @return array|bool
+     */
     public function getCalendarEvents($calendarID = 'primary')
     {
-        $optParams = array(
-           'maxResults' => 10,
-           'orderBy' => 'startTime',
-           'singleEvents' => true,
-           'timeMin' => date('c'),
-        );
+        $optParams = [
+            'maxResults' => 10,
+            'orderBy' => 'startTime',
+            'singleEvents' => true,
+            'timeMin' => date('c'),
+        ];
         $results = $this->google_service_calendar->events->listEvents($calendarID, $optParams);
-        if (count($results->getItems()) == 0) {
-            return array();
+        if (count($results->getItems()) === 0) {
+            return [];
         }
         return $this->createEventsArray($results);
     }
@@ -223,15 +219,14 @@ class GoogleCalendarInterface extends GoogleInterface
             if (empty($end)) {
                 $end = $event->end->date;
             }
-            $events_array[] = [ 'start' => $start,
-                                'end' => $end,
-                                'summary' => $event->getSummary(),
-                                'location' => $event->getLocation(),
-                                'description' => $event->getDescription(),
-                                'attendees' => $event->getAttendees(),
+            $events_array[] = ['start' => $start,
+                'end' => $end,
+                'summary' => $event->getSummary(),
+                'location' => $event->getLocation(),
+                'description' => $event->getDescription(),
+                'attendees' => $event->getAttendees(),
             ];
         }
         return $events_array;
     }
 }
-

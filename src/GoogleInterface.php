@@ -7,9 +7,6 @@ use Google_Client;
 
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
-use Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface;
-
-
 
 /*
     see:
@@ -19,36 +16,32 @@ use Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface;
 
 class GoogleInterface extends Google_Client
 {
-
-    /**
-     * @var String
-     */
-    private static $application_name = "";
-
-    /**
-     * @var String
-     */
-    private static $credentials_path = "";
-
-
-    /**
-     * @var String
-     */
-    private static $client_secret_path = "";
-
-
-    /**
-     * @var String
-     */
-    private static $client_access_type = "offline";
-
-
-    /**
-     * @var String
-     */
-    private static $time_zone = "Pacific/Auckland";
-
     protected $scopes;
+
+    /**
+     * @var string
+     */
+    private static $application_name = '';
+
+    /**
+     * @var string
+     */
+    private static $credentials_path = '';
+
+    /**
+     * @var string
+     */
+    private static $client_secret_path = '';
+
+    /**
+     * @var string
+     */
+    private static $client_access_type = 'offline';
+
+    /**
+     * @var string
+     */
+    private static $time_zone = 'Pacific/Auckland';
 
     /**
      * Constructor for the class. We call the parent constructor, set
@@ -67,7 +60,7 @@ class GoogleInterface extends Google_Client
      */
     public function config($verification_code = null)
     {
-        $base_folder = Director::baseFolder().'/';
+        $base_folder = Director::baseFolder() . '/';
         $this->setApplicationName(
             Config::inst()->get(GoogleCalendarInterface::class, 'application_name')
         );
@@ -80,20 +73,19 @@ class GoogleInterface extends Google_Client
         );
         $this->setApprovalPrompt('force');
 
-
         $credential_file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'credentials_path');
         $accessToken = [];
 
         if (file_exists($credential_file)) {
 
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: automated upgrade
-  * OLD: file_get_contents (case sensitive)
-  * NEW: file_get_contents (COMPLEX)
-  * EXP: Use new asset abstraction (https://docs.silverstripe.org/en/4/changelogs/4.0.0#asset-storage
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
+            /**
+             * ### @@@@ START REPLACEMENT @@@@ ###
+             * WHY: automated upgrade
+             * OLD: file_get_contents (case sensitive)
+             * NEW: file_get_contents (COMPLEX)
+             * EXP: Use new asset abstraction (https://docs.silverstripe.org/en/4/changelogs/4.0.0#asset-storage
+             * ### @@@@ STOP REPLACEMENT @@@@ ###
+             */
             $accessToken = json_decode(file_get_contents($credential_file), 1);
         }
 
@@ -102,7 +94,7 @@ class GoogleInterface extends Google_Client
                 return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            if (!is_null($accessToken)) {
+            if ($accessToken !== null) {
                 file_put_contents($credential_file, json_encode($accessToken));
             }
             if (isset($accessToken['error'])) {
@@ -113,7 +105,6 @@ class GoogleInterface extends Google_Client
         $this->setAccessToken($accessToken);
         // Refresh the token if it's expired.
         if ($this->isAccessTokenExpired()) {
-
             // save refresh token to some variable
             $refreshTokenSaved = $this->getRefreshToken();
 
@@ -130,7 +121,7 @@ class GoogleInterface extends Google_Client
             $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
 
-            if (!is_null($accessTokenUpdated)) {
+            if ($accessTokenUpdated !== null) {
                 file_put_contents($credential_file, json_encode($accessTokenUpdated));
             }
         }
@@ -147,4 +138,3 @@ class GoogleInterface extends Google_Client
         return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
 }
-
