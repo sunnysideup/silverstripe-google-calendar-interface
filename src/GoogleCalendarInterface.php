@@ -1,5 +1,13 @@
 <?php
 
+namespace Sunnysideup\GoogleCalendarInterface;
+
+use Google_Service_Calendar;
+use Google_Service_Calendar_Event;
+use Exception;
+use Google_Service_Calendar_EventDateTime;
+
+
 /*
     see:
     https://developers.google.com/calendar/quickstart/php

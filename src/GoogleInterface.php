@@ -1,5 +1,12 @@
 <?php
 
+namespace Sunnysideup\GoogleCalendarInterface;
+
+use Google_Client;
+use Director;
+use Config;
+
+
 /*
     see:
     https://developers.google.com/calendar/quickstart/php

@@ -1,0 +1,3 @@
+mappings:
+  GoogleInterface: Sunnysideup\GoogleCalendarInterface\GoogleInterface
+  GoogleCalendarInterface: Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface
