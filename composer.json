@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/google-calendar-interface",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "Class implementation to connect to a google calendar",
     "keywords": [
         "Silverstripe-CMS",
