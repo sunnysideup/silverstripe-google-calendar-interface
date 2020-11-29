@@ -1,0 +1,4 @@
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    GoogleInterface: Sunnysideup\GoogleCalendarInterface\GoogleInterface
+    GoogleCalendarInterface: Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface
