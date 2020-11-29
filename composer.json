@@ -20,7 +20,6 @@
     "require": {
         "php": ">=5.5.0",
         "google/apiclient": "^2.0",
-        "silverstripe/framework": "~3.6",
         "silverstripe/cms": "~3.6"
     },
     "extra": {
