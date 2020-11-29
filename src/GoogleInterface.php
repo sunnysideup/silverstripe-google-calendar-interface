@@ -3,8 +3,12 @@
 namespace Sunnysideup\GoogleCalendarInterface;
 
 use Google_Client;
-use Director;
-use Config;
+
+
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface;
+
 
 
 /*
@@ -65,19 +69,19 @@ class GoogleInterface extends Google_Client
     {
         $base_folder = Director::baseFolder().'/';
         $this->setApplicationName(
-            Config::inst()->get('GoogleCalendarInterface', 'application_name')
+            Config::inst()->get(GoogleCalendarInterface::class, 'application_name')
         );
         $this->setScopes($this->scopes);
         $this->setAuthConfigFile(
-            $base_folder . Config::inst()->get('GoogleCalendarInterface', 'client_secret_path')
+            $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'client_secret_path')
         );
         $this->setAccessType(
-            Config::inst()->get('GoogleCalendarInterface', 'client_access_type')
+            Config::inst()->get(GoogleCalendarInterface::class, 'client_access_type')
         );
         $this->setApprovalPrompt('force');
 
 
-        $credential_file = $base_folder . Config::inst()->get('GoogleCalendarInterface', 'credentials_path');
+        $credential_file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'credentials_path');
         $accessToken = [];
 
         if (file_exists($credential_file)) {

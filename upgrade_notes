@@ -1,0 +1,136 @@
+2020-11-30 12:26
+
+# running php upgrade upgrade see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/google-calendar-interface
+php /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/bin/upgrade-code upgrade /var/www/upgrades/google-calendar-interface/google-calendar-interface  --root-dir=/var/www/upgrades/google-calendar-interface --write -vvv
+Array
+(
+    [0] => Running upgrades on "/var/www/upgrades/google-calendar-interface/google-calendar-interface"
+    [1] => [2020-11-30 12:26:56] Applying RenameClasses to _config.php...
+    [2] => [2020-11-30 12:26:56] Applying ClassToTraitRule to _config.php...
+    [3] => [2020-11-30 12:26:56] Applying RenameClasses to Google-calendar-interfaceTest.php...
+    [4] => 
+    [5] => In ParserAbstract.php line 293:
+    [6] => 
+    [7] =>   [PhpParser\Error]
+    [8] =>   Syntax error, unexpected '-', expecting '{' on line 3
+    [9] => 
+    [10] => 
+    [11] => Exception trace:
+    [12] =>   at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/ParserAbstract.php:293
+    [13] =>  PhpParser\ParserAbstract->parse() at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/Parser/Multiple.php:50
+    [14] =>  PhpParser\Parser\Multiple->tryParse() at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/Parser/Multiple.php:31
+    [15] =>  PhpParser\Parser\Multiple->parse() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Util/MutableSource.php:45
+    [16] =>  SilverStripe\Upgrader\Util\MutableSource->__construct() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/UpgradeRule/PHP/RenameClasses.php:58
+    [17] =>  SilverStripe\Upgrader\UpgradeRule\PHP\RenameClasses->upgradeFile() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Upgrader.php:61
+    [18] =>  SilverStripe\Upgrader\Upgrader->upgrade() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Console/UpgradeCommand.php:95
+    [19] =>  SilverStripe\Upgrader\Console\UpgradeCommand->execute() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Command/Command.php:255
+    [20] =>  Symfony\Component\Console\Command\Command->run() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:1009
+    [21] =>  Symfony\Component\Console\Application->doRunCommand() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:273
+    [22] =>  Symfony\Component\Console\Application->doRun() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:149
+    [23] =>  Symfony\Component\Console\Application->run() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/bin/upgrade-code:55
+    [24] => 
+    [25] => upgrade [-r|--rule RULE] [-p|--prompt] [-d|--root-dir ROOT-DIR] [-w|--write] [--] <path>
+    [26] => 
+)
+
+
+------------------------------------------------------------------------
+To continue, please use the following parameter: startFrom=Upgrade
+e.g. php runme.php startFrom=Upgrade
+------------------------------------------------------------------------
+            
+# running php upgrade upgrade see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/google-calendar-interface
+php /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/bin/upgrade-code upgrade /var/www/upgrades/google-calendar-interface/google-calendar-interface  --root-dir=/var/www/upgrades/google-calendar-interface --write -vvv
+Array
+(
+    [0] => Running upgrades on "/var/www/upgrades/google-calendar-interface/google-calendar-interface"
+    [1] => [2020-11-30 12:33:11] Applying RenameClasses to _config.php...
+    [2] => [2020-11-30 12:33:11] Applying ClassToTraitRule to _config.php...
+    [3] => [2020-11-30 12:33:11] Applying RenameClasses to Google-calendar-interfaceTest.php...
+    [4] => 
+    [5] => In ParserAbstract.php line 293:
+    [6] => 
+    [7] =>   [PhpParser\Error]
+    [8] =>   Syntax error, unexpected '-', expecting '{' on line 3
+    [9] => 
+    [10] => 
+    [11] => Exception trace:
+    [12] =>   at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/ParserAbstract.php:293
+    [13] =>  PhpParser\ParserAbstract->parse() at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/Parser/Multiple.php:50
+    [14] =>  PhpParser\Parser\Multiple->tryParse() at /var/www/upgrades/upgrader_tool/vendor/nikic/php-parser/lib/PhpParser/Parser/Multiple.php:31
+    [15] =>  PhpParser\Parser\Multiple->parse() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Util/MutableSource.php:45
+    [16] =>  SilverStripe\Upgrader\Util\MutableSource->__construct() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/UpgradeRule/PHP/RenameClasses.php:58
+    [17] =>  SilverStripe\Upgrader\UpgradeRule\PHP\RenameClasses->upgradeFile() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Upgrader.php:61
+    [18] =>  SilverStripe\Upgrader\Upgrader->upgrade() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/src/Console/UpgradeCommand.php:95
+    [19] =>  SilverStripe\Upgrader\Console\UpgradeCommand->execute() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Command/Command.php:255
+    [20] =>  Symfony\Component\Console\Command\Command->run() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:1009
+    [21] =>  Symfony\Component\Console\Application->doRunCommand() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:273
+    [22] =>  Symfony\Component\Console\Application->doRun() at /var/www/upgrades/upgrader_tool/vendor/symfony/console/Application.php:149
+    [23] =>  Symfony\Component\Console\Application->run() at /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/bin/upgrade-code:55
+    [24] => 
+    [25] => upgrade [-r|--rule RULE] [-p|--prompt] [-d|--root-dir ROOT-DIR] [-w|--write] [--] <path>
+    [26] => 
+)
+
+
+------------------------------------------------------------------------
+To continue, please use the following parameter: startFrom=Upgrade
+e.g. php runme.php startFrom=Upgrade
+------------------------------------------------------------------------
+            
+# running php upgrade upgrade see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/google-calendar-interface
+php /var/www/upgrades/upgrader_tool/vendor/silverstripe/upgrader/bin/upgrade-code upgrade /var/www/upgrades/google-calendar-interface/google-calendar-interface  --root-dir=/var/www/upgrades/google-calendar-interface --write -vvv
+Writing changes for 1 files
+Running upgrades on "/var/www/upgrades/google-calendar-interface/google-calendar-interface"
+[2020-11-30 12:33:40] Applying RenameClasses to _config.php...
+[2020-11-30 12:33:40] Applying ClassToTraitRule to _config.php...
+[2020-11-30 12:33:40] Applying RenameClasses to GoogleInterface.php...
+[2020-11-30 12:33:40] Applying ClassToTraitRule to GoogleInterface.php...
+[2020-11-30 12:33:40] Applying RenameClasses to GoogleCalendarInterface.php...
+[2020-11-30 12:33:40] Applying ClassToTraitRule to GoogleCalendarInterface.php...
+modified:	src/GoogleInterface.php
+@@ -3,8 +3,12 @@
+ namespace Sunnysideup\GoogleCalendarInterface;
+
+ use Google_Client;
+-use Director;
+-use Config;
++
++
++use SilverStripe\Control\Director;
++use SilverStripe\Core\Config\Config;
++use Sunnysideup\GoogleCalendarInterface\GoogleCalendarInterface;
++
+
+
+ /*
+@@ -65,19 +69,19 @@
+     {
+         $base_folder = Director::baseFolder().'/';
+         $this->setApplicationName(
+-            Config::inst()->get('GoogleCalendarInterface', 'application_name')
++            Config::inst()->get(GoogleCalendarInterface::class, 'application_name')
+         );
+         $this->setScopes($this->scopes);
+         $this->setAuthConfigFile(
+-            $base_folder . Config::inst()->get('GoogleCalendarInterface', 'client_secret_path')
++            $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'client_secret_path')
+         );
+         $this->setAccessType(
+-            Config::inst()->get('GoogleCalendarInterface', 'client_access_type')
++            Config::inst()->get(GoogleCalendarInterface::class, 'client_access_type')
+         );
+         $this->setApprovalPrompt('force');
+
+
+-        $credential_file = $base_folder . Config::inst()->get('GoogleCalendarInterface', 'credentials_path');
++        $credential_file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'credentials_path');
+         $accessToken = [];
+
+         if (file_exists($credential_file)) {
+
+Writing changes for 1 files
+✔✔✔
