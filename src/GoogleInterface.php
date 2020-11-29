@@ -127,3 +127,4 @@ class GoogleInterface extends Google_Client
         return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
 }
+
