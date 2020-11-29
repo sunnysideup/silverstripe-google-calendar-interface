@@ -23,5 +23,10 @@
         "silverstripe/recipe-cms": "^4.4"
     },
     "extra": [],
-    "license": "BSD-3-Clause"
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "Sunnysideup\\GoogleCalendarInterface\\": "src/"
+        }
+    }
 }
