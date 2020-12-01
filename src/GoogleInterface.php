@@ -77,15 +77,6 @@ class GoogleInterface extends Google_Client
         $accessToken = [];
 
         if (file_exists($credential_file)) {
-
-            /**
-             * ### @@@@ START REPLACEMENT @@@@ ###
-             * WHY: automated upgrade
-             * OLD: file_get_contents (case sensitive)
-             * NEW: file_get_contents (COMPLEX)
-             * EXP: Use new asset abstraction (https://docs.silverstripe.org/en/4/changelogs/4.0.0#asset-storage
-             * ### @@@@ STOP REPLACEMENT @@@@ ###
-             */
             $accessToken = json_decode(file_get_contents($credential_file), 1);
         }
 
