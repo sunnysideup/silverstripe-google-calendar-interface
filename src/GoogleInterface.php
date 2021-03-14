@@ -121,7 +121,7 @@ class GoogleInterface extends Google_Client
 
     /**
      * Get error message string
-     * @return html
+     * @return string (html)
      */
     public function getAuthLink()
     {
