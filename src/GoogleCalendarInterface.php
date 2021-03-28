@@ -99,8 +99,7 @@ class GoogleCalendarInterface extends GoogleInterface
 
         try {
             $event = $this->google_service_calendar->events->insert($calendarID, $event);
-        } catch (Exception $e) {
-            //should we provide some actual feedback here or just return false?
+        } catch (Exception $exception) {
             return false;
         }
         return $event;

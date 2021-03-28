@@ -44,15 +44,6 @@ class GoogleInterface extends Google_Client
     private static $time_zone = 'Pacific/Auckland';
 
     /**
-     * Constructor for the class. We call the parent constructor, set
-     * scopes array and service calendar instance that we will use
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Class configurator
      * @param null $verification_code Verification code we will use
      * to create our authentication credentials
