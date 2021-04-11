@@ -213,10 +213,8 @@ class GoogleCalendarInterface extends GoogleInterface
      * Creates the events array.
      *
      * @param object $eventsResult events result object
-     *
-     * @return array
      */
-    private function createEventsArray($eventsResult) : array
+    private function createEventsArray($eventsResult): array
     {
         $eventsArray = [];
         foreach ($eventsResult->getItems() as $event) {
