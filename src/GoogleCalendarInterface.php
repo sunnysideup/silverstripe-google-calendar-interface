@@ -212,13 +212,13 @@ class GoogleCalendarInterface extends GoogleInterface
     /**
      * Creates the events array.
      *
-     * @param array $eventsResult events result array
+     * @param object $eventsResult events result object
      *
      * @return array
      */
-    private function createEventsArray($eventsResult)
+    private function createEventsArray($eventsResult) : array
     {
-        $events_array = [];
+        $eventsArray = [];
         foreach ($eventsResult->getItems() as $event) {
             $start = $event->start->dateTime;
             $end = $event->end->dateTime;
@@ -228,7 +228,7 @@ class GoogleCalendarInterface extends GoogleInterface
             if (empty($end)) {
                 $end = $event->end->date;
             }
-            $events_array[] = ['start' => $start,
+            $eventsArray[] = ['start' => $start,
                 'end' => $end,
                 'summary' => $event->getSummary(),
                 'location' => $event->getLocation(),
@@ -237,6 +237,6 @@ class GoogleCalendarInterface extends GoogleInterface
             ];
         }
 
-        return $events_array;
+        return $eventsArray;
     }
 }
