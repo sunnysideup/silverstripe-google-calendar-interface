@@ -26,12 +26,12 @@ class GoogleCalendarInterface extends GoogleInterface
 
     /**
      * Constructor for the class. We call the parent constructor, set
-     * scopes array and service calendar instance that we will use
+     * scopes array and service calendar instance that we will use.
      */
     public function __construct()
     {
         parent::__construct();
-        /**
+        /*
          * Google calendar service may have the options:
          * Google_Service_Calendar::CALENDAR_READONLY
          * if you want read only access
@@ -44,13 +44,14 @@ class GoogleCalendarInterface extends GoogleInterface
     }
 
     /**
-     * Gets a list of all calenders
+     * Gets a list of all calenders.
+     *
      * @return array|bool
      */
     public function getCalendars()
     {
         $results = $this->google_service_calendar->calendarList->listCalendarList();
-        if (count($results->getItems()) === 0) {
+        if (0 === count($results->getItems())) {
             return [];
         }
 
@@ -88,9 +89,11 @@ class GoogleCalendarInterface extends GoogleInterface
      *           array('method' => 'popup', 'minutes' => 10),
      *   ),
      *   ),
-     *   )
-     * @param array $eventAttributes Event attributes array
-     * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
+     *   ).
+     *
+     * @param array  $eventAttributes Event attributes array
+     * @param string $calendarID      CalendarID - lets you set the calendar if you don't want to use the primary calendar
+     *
      * @return Google_Service_Calendar_Event
      */
     public function addCalendarEvent($eventAttributes, $calendarID = 'primary')
@@ -102,6 +105,7 @@ class GoogleCalendarInterface extends GoogleInterface
         } catch (Exception $exception) {
             return false;
         }
+
         return $event;
     }
 
@@ -164,9 +168,10 @@ class GoogleCalendarInterface extends GoogleInterface
             return false;
         }
 
-        if ($event->getStatus() === 'cancelled') {
+        if ('cancelled' === $event->getStatus()) {
             return false;
         }
+
         return $event;
     }
 
@@ -182,8 +187,10 @@ class GoogleCalendarInterface extends GoogleInterface
     }
 
     /**
-     * Get our selected calendar events as an array or false if it's empty
+     * Get our selected calendar events as an array or false if it's empty.
+     *
      * @param string $calendarID CalendarID - lets you set the calendar if you don't want to use the primary calendar
+     *
      * @return array|bool
      */
     public function getCalendarEvents($calendarID = 'primary')
@@ -195,15 +202,18 @@ class GoogleCalendarInterface extends GoogleInterface
             'timeMin' => date('c'),
         ];
         $results = $this->google_service_calendar->events->listEvents($calendarID, $optParams);
-        if (count($results->getItems()) === 0) {
+        if (0 === count($results->getItems())) {
             return [];
         }
+
         return $this->createEventsArray($results);
     }
 
     /**
-     * Creates the events array
+     * Creates the events array.
+     *
      * @param array $eventsResult events result array
+     *
      * @return array
      */
     private function createEventsArray($eventsResult)
@@ -226,6 +236,7 @@ class GoogleCalendarInterface extends GoogleInterface
                 'attendees' => $event->getAttendees(),
             ];
         }
+
         return $events_array;
     }
 }

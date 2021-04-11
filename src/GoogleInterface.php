@@ -3,8 +3,6 @@
 namespace Sunnysideup\GoogleCalendarInterface;
 
 use Google_Client;
-
-
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
 
@@ -44,9 +42,11 @@ class GoogleInterface extends Google_Client
     private static $time_zone = 'Pacific/Auckland';
 
     /**
-     * Class configurator
+     * Class configurator.
+     *
      * @param null $verification_code Verification code we will use
-     * to create our authentication credentials
+     *                                to create our authentication credentials
+     *
      * @return bool
      */
     public function config($verification_code = null)
@@ -76,7 +76,7 @@ class GoogleInterface extends Google_Client
                 return false;
             }
             $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            if ($accessToken !== null) {
+            if (null !== $accessToken) {
                 file_put_contents($credential_file, json_encode($accessToken));
             }
             if (isset($accessToken['error'])) {
@@ -103,20 +103,23 @@ class GoogleInterface extends Google_Client
             $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
 
-            if ($accessTokenUpdated !== null) {
+            if (null !== $accessTokenUpdated) {
                 file_put_contents($credential_file, json_encode($accessTokenUpdated));
             }
         }
+
         return true;
     }
 
     /**
-     * Get error message string
+     * Get error message string.
+     *
      * @return string (html)
      */
     public function getAuthLink()
     {
         $authUrl = $this->createAuthUrl();
+
         return '<a href="' . $authUrl . '" target="_blank">Retrieve Verification Code</a>';
     }
 }
