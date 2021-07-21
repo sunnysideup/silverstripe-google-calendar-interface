@@ -56,58 +56,58 @@ class GoogleInterface extends Google_Client
             Config::inst()->get(GoogleCalendarInterface::class, 'application_name')
         );
         $this->setScopes($this->scopes);
-        $this->setAuthConfigFile(
-            $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'client_secret_path')
-        );
-        $this->setAccessType(
-            Config::inst()->get(GoogleCalendarInterface::class, 'client_access_type')
-        );
-        $this->setApprovalPrompt('force');
+        $file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'client_secret_path');
+        if(file_exists($file)) {
+            $this->setAuthConfigFile($file);
+            $this->setAccessType(
+                Config::inst()->get(GoogleCalendarInterface::class, 'client_access_type')
+            );
+            $this->setApprovalPrompt('force');
 
-        $credential_file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'credentials_path');
-        $accessToken = [];
+            $credential_file = $base_folder . Config::inst()->get(GoogleCalendarInterface::class, 'credentials_path');
+            $accessToken = [];
 
-        if (file_exists($credential_file)) {
-            $accessToken = json_decode(file_get_contents($credential_file), 1);
-        }
-
-        if (! file_exists($credential_file) || isset($accessToken['error'])) {
-            if (empty($verification_code)) {
-                return false;
+            if (file_exists($credential_file)) {
+                $accessToken = json_decode(file_get_contents($credential_file), 1);
             }
-            $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
-            if (null !== $accessToken) {
-                file_put_contents($credential_file, json_encode($accessToken));
+
+            if (! file_exists($credential_file) || isset($accessToken['error'])) {
+                if (empty($verification_code)) {
+                    return false;
+                }
+                $accessToken = $this->fetchAccessTokenWithAuthCode($verification_code);
+                if (null !== $accessToken) {
+                    file_put_contents($credential_file, json_encode($accessToken));
+                }
+                if (isset($accessToken['error'])) {
+                    return false;
+                }
             }
-            if (isset($accessToken['error'])) {
-                return false;
-            }
-        }
 
-        $this->setAccessToken($accessToken);
-        // Refresh the token if it's expired.
-        if ($this->isAccessTokenExpired()) {
-            // save refresh token to some variable
-            $refreshTokenSaved = $this->getRefreshToken();
-
-            // update access token
-            $this->fetchAccessTokenWithRefreshToken($refreshTokenSaved);
-
-            // pass access token to some variable
-            $accessTokenUpdated = $this->getAccessToken();
-
-            // append refresh token
-            $accessTokenUpdated['refresh_token'] = $refreshTokenSaved;
-
-            //Set the new acces token
-            $accessToken = $refreshTokenSaved;
             $this->setAccessToken($accessToken);
+            // Refresh the token if it's expired.
+            if ($this->isAccessTokenExpired()) {
+                // save refresh token to some variable
+                $refreshTokenSaved = $this->getRefreshToken();
 
-            if (null !== $accessTokenUpdated) {
-                file_put_contents($credential_file, json_encode($accessTokenUpdated));
+                // update access token
+                $this->fetchAccessTokenWithRefreshToken($refreshTokenSaved);
+
+                // pass access token to some variable
+                $accessTokenUpdated = $this->getAccessToken();
+
+                // append refresh token
+                $accessTokenUpdated['refresh_token'] = $refreshTokenSaved;
+
+                //Set the new acces token
+                $accessToken = $refreshTokenSaved;
+                $this->setAccessToken($accessToken);
+
+                if (null !== $accessTokenUpdated) {
+                    file_put_contents($credential_file, json_encode($accessTokenUpdated));
+                }
             }
         }
-
         return true;
     }
 
