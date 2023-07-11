@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5.0",
         "google/apiclient": "^2.0",
-        "silverstripe/recipe-cms": "^4.4"
+        "silverstripe/recipe-cms": "^4.0 || ^5.0"
     },
     "extra": [],
     "license": "BSD-3-Clause",
