@@ -1,32 +1,32 @@
 {
-    "name": "sunnysideup/google-calendar-interface",
-    "type": "silverstripe-vendormodule",
-    "description": "Class implementation to connect to a google calendar",
-    "keywords": [
-        "Silverstripe-CMS",
-        "CMS",
-        "Silverstripe",
-        "google",
-        "calendar",
-        "client",
-        "interface"
-    ],
-    "authors": [
-        {
-            "name": "Nicolaas Francken",
-            "email": "modules@sunnysideup.co.nz"
-        }
-    ],
-    "require": {
-        "php": ">=5.5.0",
-        "google/apiclient": "^2.0",
-        "silverstripe/recipe-cms": "^4.0 || ^5.0"
-    },
-    "extra": [],
-    "license": "BSD-3-Clause",
-    "autoload": {
-        "psr-4": {
-            "Sunnysideup\\GoogleCalendarInterface\\": "src/"
-        }
+  "name": "sunnysideup/google-calendar-interface",
+  "type": "silverstripe-vendormodule",
+  "description": "Class implementation to connect to a google calendar",
+  "keywords": [
+    "Silverstripe-CMS",
+    "CMS",
+    "Silverstripe",
+    "google",
+    "calendar",
+    "client",
+    "interface"
+  ],
+  "authors": [
+    {
+      "name": "Nicolaas Francken",
+      "email": "modules@sunnysideup.co.nz"
     }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "google/apiclient": "^2.0",
+    "silverstripe/recipe-cms": "^4.0 || ^5.0"
+  },
+  "extra": [],
+  "license": "BSD-3-Clause",
+  "autoload": {
+    "psr-4": {
+      "Sunnysideup\\GoogleCalendarInterface\\": "src/"
+    }
+  }
 }
